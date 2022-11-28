@@ -18,7 +18,11 @@ configure_file(Config.h.in Config.h)
 
 add_subdirectory(SFML)
 
-list(APPEND EXTRA_LIBS sfml-window)
+list(APPEND EXTRA_LIBS
+        sfml-window
+        sfml-system
+        sfml-graphics
+    )
 list(APPEND EXTRA_INCLUDES 
     "${PROJECT_SOURCE_DIR}/SFML" 
     "${PROJECT_SOURCE_DIR}/SFML/include"
