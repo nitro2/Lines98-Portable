@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(ProjectName ShootThemAll)
+set(ProjectName Lines98)
 # set the project name and version
 project("${ProjectName}" VERSION 1.0)
 
