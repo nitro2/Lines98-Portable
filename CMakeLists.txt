@@ -17,11 +17,13 @@ configure_file(Config.h.in Config.h)
 # add the SFML library
 
 add_subdirectory(SFML)
+add_subdirectory(src)
 
 list(APPEND EXTRA_LIBS
         sfml-window
         sfml-system
         sfml-graphics
+        CoreGame
     )
 list(APPEND EXTRA_INCLUDES 
     "${PROJECT_SOURCE_DIR}/SFML" 

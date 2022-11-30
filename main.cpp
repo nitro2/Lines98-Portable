@@ -4,16 +4,29 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
-void renderingThread(sf::Window* window)
+#include "game.hpp"
+
+void renderingThread(sf::RenderWindow* window)
 {
     // activate the window's context
     window->setActive(true);
+    sf::Texture texture;
+    if (!texture.loadFromFile("assets/ball.png", sf::IntRect(-20, -100, 50, 50)))
+    {
+        // error...
+    }
+    sf::Sprite sprite;
+    sprite.setTexture(texture);
 
+    Game game = Game();
+    game.update();
     // the rendering loop
     while (window->isOpen())
     {
         // draw...
+        window->draw(sprite);
 
+        // texture.update(*window);
         // end the current frame -- this is a rendering function (it requires the context to be active)
         window->display();
     }
