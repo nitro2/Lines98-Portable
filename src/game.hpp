@@ -26,7 +26,7 @@ private:
         SELECT_BALL
     };
 
-    std::vector<std::vector<CellState> > matrix;
+    CellState matrix[ROW_NUM][COL_NUM];
 
 };
 

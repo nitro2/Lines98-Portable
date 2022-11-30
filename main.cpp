@@ -8,6 +8,7 @@
 
 void renderingThread(sf::RenderWindow* window)
 {
+    std::cout << __FUNCTION__ << " " << __LINE__ << std::endl;
     // activate the window's context
     window->setActive(true);
     sf::Texture texture;
@@ -35,6 +36,9 @@ void renderingThread(sf::RenderWindow* window)
 
 int main()
 {
+
+    std::cout << __FUNCTION__ << " " << __LINE__ << std::endl;
+
     sf::RenderWindow window(sf::VideoMode(1200, 1200), "Lines 98");
     window.setVerticalSyncEnabled(true);
     // deactivate its context

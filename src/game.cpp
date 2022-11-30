@@ -4,7 +4,7 @@
 
 // Constructor
 Game::Game() {
-    std::vector<std::vector<CellState> > matrix(ROW_NUM, std::vector<CellState>(COL_NUM, CellState::EMPTY));
+    init();
 }
 // Destructor
 Game::~Game() {
@@ -13,13 +13,16 @@ Game::~Game() {
 
 
 void Game::init() {
-    // std::fill(matrix.begin(), matrix.end(), CellState::BALL);
+    std::fill_n(&matrix[0][0], sizeof(matrix)/sizeof(matrix[0][0]), CellState::EMPTY);
 }
 
 void Game::update() {
-    std::cout << "nngo debug";
-    for (auto elem: matrix) {
-        std::cout << "d"  << " ";
+    std::cout << __FUNCTION__ << " " << __LINE__ << std::endl;
+    std::cout << sizeof(matrix) << std::endl;
+    for (auto& row: matrix) {
+        for (auto& elem: row) {
+            std::cout << elem  << " " << std::endl;
+        }
     }
 }
 
