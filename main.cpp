@@ -5,28 +5,43 @@
 #include <SFML/Graphics.hpp>
 
 #include "game.hpp"
+#include "map.hpp"
+#include "ball.hpp"
 
 void renderingThread(sf::RenderWindow* window)
 {
     std::cout << __FUNCTION__ << " " << __LINE__ << std::endl;
     // activate the window's context
     window->setActive(true);
-    sf::Texture texture;
-    if (!texture.loadFromFile("assets/ball.png", sf::IntRect(-20, -100, 50, 50)))
-    {
-        // error...
-    }
-    sf::Sprite sprite;
-    sprite.setTexture(texture);
 
     Game game = Game();
+    // define the level with an array of tile indices
+    // const int level[] =
+    // {
+    //     0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+    //     0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
+    //     1, 1, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2,
+    //     0, 1, 0, 0, 2, 0, 2, 2, 2, 0, 1, 1, 1, 0, 0, 0,
+    //     0, 1, 1, 0, 2, 2, 2, 0, 0, 0, 1, 1, 1, 2, 0, 0,
+    //     0, 0, 1, 0, 2, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
+    //     2, 0, 1, 0, 2, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
+    //     0, 0, 1, 0, 2, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
+    // };
+
+    // // create the tilemap from the level definition
+    // TileMap map;
+    // if (!map.load("assets/d1.gif", sf::Vector2u(32, 32), level, 16, 8))
+    //     return;
+    sf::Texture texture;
+    Ball ball(&texture, 50, sf::Color::Green);
     game.update();
     // the rendering loop
     while (window->isOpen())
     {
         // draw...
-        window->draw(sprite);
-
+        window->clear();
+        // window->draw(map);
+        ball.draw(*window);
         // texture.update(*window);
         // end the current frame -- this is a rendering function (it requires the context to be active)
         window->display();
@@ -47,23 +62,26 @@ int main()
     // launch the rendering thread
     sf::Thread thread(&renderingThread, &window);
     thread.launch();
-    
+
     // run the program as long as the window is open
     while (window.isOpen())
     {
-// check all the window's events that were triggered since the last iteration of the loop
+        // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         while (window.pollEvent(event))
         {
             // "close requested" event: we close the window
-            switch(event.type)
+            switch (event.type)
             {
-                case sf::Event::Closed:
-                    window.close();
-                    break;
-                default:
-                    break;
+            case sf::Event::Closed:
+                window.close();
+                break;
+            default:
+                break;
             }
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+            game.pr
         }
     }
 
