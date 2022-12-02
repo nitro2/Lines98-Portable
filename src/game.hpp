@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <map>
 
 #include "ball.hpp"
 #include "map.hpp"
@@ -24,14 +25,15 @@ public:
     void draw(sf::RenderWindow& window);
 
 private:
-    static const int COL_NUM = 2;
-    static const int ROW_NUM = 2;
-    static const int TILE_SIZE = 50;
-    static const int BALL_SIZE = 40;
+    static const int COL_NUM = 10;
+    static const int ROW_NUM = 10;
+    static const int TILE_SIZE = 100;
+    static const int BALL_SIZE = 70;
 
     enum BallState {
         EMPTY = 0,
         BALL,
+        MAX_BALLSTATE
     };
     enum BallType {
         BALL_TYPE_NONE,
@@ -41,6 +43,7 @@ private:
         BALL_TYPE_4,
         BALL_TYPE_5,
         BALL_TYPE_6,
+        MAX_BALLTYPE
     };
 
     typedef struct Cell {
@@ -50,6 +53,17 @@ private:
     } Cell;
 
     Cell matrix[ROW_NUM][COL_NUM];
+
+    std::map<BallType, sf::Color> ColorDict = {
+        {BALL_TYPE_NONE, sf::Color::White},
+        {BALL_TYPE_1, sf::Color::Red},
+        {BALL_TYPE_2, sf::Color::Yellow},
+        {BALL_TYPE_3, sf::Color::Green},
+        {BALL_TYPE_4, sf::Color::Blue},
+        {BALL_TYPE_5, sf::Color::Cyan},
+        {BALL_TYPE_6, sf::Color::Magenta},
+    };
+
 
     std::vector<std::shared_ptr<Ball>> object_list;
 
