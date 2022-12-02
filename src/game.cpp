@@ -20,11 +20,7 @@ void Game::init() {
             matrix[i][j].pos.x = i * TILE_SIZE;
             matrix[i][j].pos.y = j * TILE_SIZE;
 
-            // auto texture = std::make_shared<sf::Texture>();
-            // auto texture = new sf::Texture();
-            // auto ball = std::make_shared<Ball>(texture, BALL_SIZE / 2, sf::Color::Green, matrix[i][j].pos);
-            // auto ball = std::make_shared<Ball>(BALL_SIZE / 2, sf::Color::Green, matrix[i][j].pos);
-            Ball* ball = new Ball(BALL_SIZE / 2, sf::Color::Green, matrix[i][j].pos);
+            auto ball = std::make_shared<Ball>(BALL_SIZE / 2, sf::Color::Green, matrix[i][j].pos);
             object_list.push_back(ball);
         }
     }
@@ -32,8 +28,6 @@ void Game::init() {
 
 void Game::update() {
     std::cout << __FUNCTION__ << " " << __LINE__ << std::endl;
-    std::cout << sizeof(matrix) << std::endl;
-
 }
 
 void Game::printConsole() {

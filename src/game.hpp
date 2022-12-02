@@ -51,8 +51,7 @@ private:
 
     Cell matrix[ROW_NUM][COL_NUM];
 
-    // std::vector<std::shared_ptr<Ball>> object_list;
-    std::vector<Ball*> object_list;
+    std::vector<std::shared_ptr<Ball>> object_list;
 
 };
 
