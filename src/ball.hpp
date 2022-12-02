@@ -2,16 +2,16 @@
 #define _BALL_HPP_
 #include <SFML/Graphics.hpp>
 
-class Ball {
+class Ball : public sf::CircleShape {
 public:
-    Ball(sf::Texture* texture, int radius, sf::Color color);
+    Ball(float radius, sf::Color color, sf::Vector2f pos);
+    Ball(sf::Texture* texture, float radius, sf::Color color, sf::Vector2f pos);
     ~Ball();
 
     void update(float delta_time);
-    void draw(sf::RenderWindow& window);
 
 private:
-    sf::CircleShape circle;
+
 };
 
 #endif // _BALL_HPP_

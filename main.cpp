@@ -5,7 +5,6 @@
 #include <SFML/Graphics.hpp>
 
 #include "game.hpp"
-#include "map.hpp"
 #include "ball.hpp"
 
 void renderingThread(sf::RenderWindow* window)
@@ -33,7 +32,7 @@ void renderingThread(sf::RenderWindow* window)
     // if (!map.load("assets/d1.gif", sf::Vector2u(32, 32), level, 16, 8))
     //     return;
     sf::Texture texture;
-    Ball ball(&texture, 50, sf::Color::Green);
+    // Ball ball(&texture, 50, sf::Color::Green);
     game.update();
     // the rendering loop
     while (window->isOpen())
@@ -41,7 +40,7 @@ void renderingThread(sf::RenderWindow* window)
         // draw...
         window->clear();
         // window->draw(map);
-        ball.draw(*window);
+        // ball.draw(*window);
         // texture.update(*window);
         // end the current frame -- this is a rendering function (it requires the context to be active)
         window->display();
@@ -55,17 +54,21 @@ int main()
     std::cout << __FUNCTION__ << " " << __LINE__ << std::endl;
 
     sf::RenderWindow window(sf::VideoMode(1200, 1200), "Lines 98");
-    window.setVerticalSyncEnabled(true);
+    // window.setVerticalSyncEnabled(true);
+    window.setFramerateLimit(1);
     // deactivate its context
-    window.setActive(false);
+    window.setActive(true);
 
     // launch the rendering thread
-    sf::Thread thread(&renderingThread, &window);
-    thread.launch();
+    // sf::Thread thread(&renderingThread, &window);
+    // thread.launch();
+
+    Game game = Game();
 
     // run the program as long as the window is open
     while (window.isOpen())
     {
+        std::cout << __FUNCTION__ << " " << __LINE__ << std::endl;
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         while (window.pollEvent(event))
@@ -81,8 +84,19 @@ int main()
             }
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
-            game.pr
+            std::cout << "Down key" << std::endl;
+            game.printConsole();
         }
+
+        game.update();
+
+        // draw...
+        window.clear();
+        // window.draw(game);
+        game.draw(window);
+        // texture.update(*window);
+        // end the current frame -- this is a rendering function (it requires the context to be active)
+        window.display();
     }
 
     return 0;

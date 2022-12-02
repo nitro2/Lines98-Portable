@@ -1,12 +1,19 @@
+#include <iostream>
 #include "ball.hpp"
 
-// Constructor
-Ball::Ball(sf::Texture* texture, int radius, sf::Color color) {
-    circle.setRadius(radius);
-    circle.setOutlineColor(color);
-    circle.setOutlineThickness(5);
-    circle.setPosition(10, 20);
-    circle.setTexture(texture);
+Ball::Ball(float radius, sf::Color color, sf::Vector2f pos) {
+    this->setRadius(radius);
+    this->setOutlineColor(color);
+    this->setOutlineThickness(5);
+    this->setPosition(pos.x, pos.y);
+}
+
+Ball::Ball(sf::Texture* texture, float radius, sf::Color color, sf::Vector2f pos) {
+    this->setRadius(radius);
+    this->setOutlineColor(color);
+    this->setOutlineThickness(5);
+    this->setPosition(pos.x, pos.y);
+    this->setTexture(texture);
 }
 // Destructor
 Ball::~Ball() {
@@ -15,8 +22,4 @@ Ball::~Ball() {
 
 void Ball::update(float delta_time) {
 
-};
-
-void Ball::draw(sf::RenderWindow& window) {
-    window.draw(circle);
 };
