@@ -12,8 +12,11 @@ cmake ../
 cmake --build .
 ```
 
-## Build and run
+# Build and run
 ```
 make
 make run
 ```
+
+# Screenshot
+![alt text](screen.png)
