@@ -8,7 +8,6 @@ project("${ProjectName}" VERSION 1.0)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set(CMAKE_CXX_FLAGS "-fvisibility=hidden")
 
 set(BUILD_SHARED_LIBS OFF)
 # configure a header file to pass some of the CMake settings

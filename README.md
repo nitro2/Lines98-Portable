@@ -6,6 +6,7 @@ Target to build and run on multiple platforms (Mac, Windows, Linux)
 
 ## Cmake
 ```
+git submodule update --init --recursive
 mkdir build
 cd build
 cmake ../
