@@ -38,7 +38,7 @@ void renderingThread(sf::RenderWindow* window)
     while (window->isOpen())
     {
         // draw...
-        window->clear();
+        window->clear(sf::Color(220, 220, 220));
         // window->draw(map);
         // ball.draw(*window);
         // texture.update(*window);
@@ -91,7 +91,7 @@ int main()
         game.update();
 
         // draw...
-        window.clear();
+        window.clear(sf::Color(220, 220, 220));
         // window.draw(game);
         game.draw(window);
         // texture.update(*window);

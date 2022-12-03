@@ -65,7 +65,7 @@ private:
     };
 
 
-    std::vector<std::shared_ptr<Ball>> object_list;
+    std::vector<std::shared_ptr<sf::Drawable>> object_list;
 
 };
 

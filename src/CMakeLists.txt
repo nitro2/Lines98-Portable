@@ -2,6 +2,7 @@
 list(APPEND COMMON_SOURCES 
     ${CMAKE_CURRENT_SOURCE_DIR}/game.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ball.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/map.cpp
 )
 
 add_library(CoreGame ${COMMON_SOURCES})

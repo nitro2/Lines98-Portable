@@ -8,6 +8,8 @@ project("${ProjectName}" VERSION 1.0)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+set(CMAKE_CXX_FLAGS "-fvisibility=hidden")
+
 set(BUILD_SHARED_LIBS OFF)
 # configure a header file to pass some of the CMake settings
 # to the source code
@@ -29,7 +31,6 @@ list(APPEND EXTRA_INCLUDES
     "${PROJECT_SOURCE_DIR}/SFML" 
     "${PROJECT_SOURCE_DIR}/SFML/include"
     )
-
 
 # add the executable
 add_executable("${ProjectName}" main.cpp)

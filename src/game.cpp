@@ -39,6 +39,10 @@ void Game::init() {
             std::cout << std::endl;
         }
     }
+
+    // Add tile map
+    auto tile_map = std::make_shared<TileMap>(sf::Vector2f(0.0f, 0.0f), ROW_NUM + 1, COL_NUM + 1, 1.0 * TILE_SIZE);
+    object_list.push_back(tile_map);
 }
 
 void Game::update() {
