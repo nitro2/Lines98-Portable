@@ -17,7 +17,8 @@ void Game::init() {
     srand(0);
     std::fill_n(&matrix[0][0], sizeof(matrix) / sizeof(matrix[0][0]),
         Cell{ .state = BallState::EMPTY, .type = BallType::BALL_TYPE_NONE });
-    // Init cell value
+    // Init cells value
+    auto adjust_mid = (TILE_SIZE - BALL_SIZE) / 2;
     for (int i = 0; i < ROW_NUM; i++) {
         for (int j = 0; j < COL_NUM; j++) {
             matrix[i][j].pos.x = i * TILE_SIZE;
@@ -32,7 +33,8 @@ void Game::init() {
                 int t = rand() % (BallType::MAX_BALLTYPE - 1) + 1;
                 // std::cout << "t=" << t << std::endl;
                 matrix[i][j].type = static_cast<BallType>(t);
-                auto ball = std::make_shared<Ball>(BALL_SIZE / 2, ColorDict[matrix[i][j].type], matrix[i][j].pos);
+                auto ball = std::make_shared<Ball>(BALL_SIZE / 2, ColorDict[matrix[i][j].type],
+                    sf::Vector2f(matrix[i][j].pos.x + adjust_mid, matrix[i][j].pos.y + adjust_mid));
                 object_list.push_back(ball);
             }
 
@@ -60,15 +62,12 @@ void Game::printConsole() {
 
 void Game::draw(sf::RenderWindow& window) {
     // std::cout << __FUNCTION__ << " " << __LINE__ << std::endl;
-    // std::cout << "Size of object_lsit" << object_list.size() << std::endl;
     for (auto& obj : object_list) {
         if (obj) {
             window.draw(*obj);
-            // std::cout << obj->getPosition().x << "." << obj->getPosition().y << std::endl;
         }
         else {
             std::cout << "Null object" << std::endl;
         }
     }
-    // std::cout << __FUNCTION__ << " " << __LINE__ << std::endl;
 }
