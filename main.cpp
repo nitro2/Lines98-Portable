@@ -15,7 +15,7 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "Lines 98");
     // window.setVerticalSyncEnabled(true);
-    window.setFramerateLimit(1);
+    window.setFramerateLimit(24);
     window.setActive(true);
 
 
@@ -41,6 +41,10 @@ int main()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
             std::cout << "Down key" << std::endl;
             game.printConsole();
+        }
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            auto m = sf::Mouse::getPosition(window);
+            game.setClickPosition(m.x, m.y);
         }
 
         game.update();

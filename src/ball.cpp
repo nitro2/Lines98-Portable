@@ -18,3 +18,15 @@ Ball::~Ball() {
 void Ball::update(float delta_time) {
 
 };
+
+void Ball::setSelect(bool enable) {
+    this->selected = enable;
+    if (this->selected) {
+        this->setOutlineColor(sf::Color::Black);
+        this->setOutlineThickness(5);
+    }
+    else {
+        this->setOutlineColor(sf::Color::Transparent);
+        this->setOutlineThickness(0);
+    }
+}

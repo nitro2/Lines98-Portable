@@ -10,8 +10,9 @@ public:
 
     void update(float delta_time);
 
+    void setSelect(bool enable);
 private:
-
+    bool selected;
 };
 
 #endif // _BALL_HPP_

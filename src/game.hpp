@@ -5,6 +5,8 @@
 #include <memory>
 #include <map>
 
+#include <SFML/Graphics.hpp>
+
 #include "ball.hpp"
 #include "map.hpp"
 // Game class
@@ -19,7 +21,7 @@ public:
     void init();
     // Game logic update
     void update();
-    int* getMatrix();
+    void setClickPosition(int x, int y);
     void printConsole();
 
     void draw(sf::RenderWindow& window);
@@ -32,8 +34,8 @@ private:
 
     enum BallState {
         EMPTY = 0,
-        BALL,
-        MAX_BALLSTATE
+        INACTIVE_BALL,
+        ACTIVE_BALL
     };
     enum BallType {
         BALL_TYPE_NONE,
@@ -50,6 +52,7 @@ private:
         BallState state;
         BallType type;
         sf::Vector2f pos;
+        std::shared_ptr<Ball> p_ball;
     } Cell;
 
     Cell matrix[ROW_NUM][COL_NUM];
@@ -67,6 +70,7 @@ private:
 
     std::vector<std::shared_ptr<sf::Drawable>> object_list;
 
+    // std::pair<int&, int&> selecting_cell;
 };
 
 #endif // _GAME_HPP_
