@@ -7,8 +7,10 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "a_star.hpp"
 #include "ball.hpp"
 #include "map.hpp"
+
 // Game class
 class Game {
 public:
@@ -75,6 +77,10 @@ private:
     sf::Vector2i selecting_position;
 
     sf::Clock clock;
+
+    AStar::Generator generator;
+    AStar::CoordinateList moving_path;
+    void updateMovingPath(int start_x, int start_y, int end_x, int end_y);
 };
 
 #endif // _GAME_HPP_

@@ -16,6 +16,13 @@ Game::~Game() {
 
 
 void Game::init() {
+    // Init A* algorithm
+    // Set 2d map size.
+    this->generator.setWorldSize({ ROW_NUM, COL_NUM });
+    // You can use a few heuristics : manhattan, euclidean or octagonal.
+    this->generator.setHeuristic(AStar::Heuristic::euclidean);
+    this->generator.setDiagonalMovement(false);
+
     // TODO set this srand to time for more randomly
     srand(0);
     std::fill_n(&matrix[0][0], sizeof(matrix) / sizeof(matrix[0][0]),
@@ -38,8 +45,9 @@ void Game::init() {
                 matrix[i][j].type = static_cast<BallType>(t);
                 auto new_ball = std::make_shared<Ball>(BALL_SIZE / 2, ColorDict[matrix[i][j].type],
                     sf::Vector2f(matrix[i][j].pos.x + adjust_mid, matrix[i][j].pos.y + adjust_mid));
-                object_list.push_back(new_ball);
+                this->object_list.push_back(new_ball);
                 matrix[i][j].p_ball = new_ball;
+                this->generator.addCollision({ i,j });
             }
             else {
                 matrix[i][j].p_ball = nullptr;
@@ -51,7 +59,7 @@ void Game::init() {
 
     // Add tile map
     auto tile_map = std::make_shared<TileMap>(sf::Vector2f(0.0f, 0.0f), ROW_NUM + 1, COL_NUM + 1, 1.0 * TILE_SIZE);
-    object_list.push_back(tile_map);
+    this->object_list.push_back(tile_map);
 }
 
 void Game::update() {
@@ -80,9 +88,9 @@ void Game::draw(sf::RenderWindow& window) {
 }
 
 void Game::setClickPosition(int x, int y) {
-    std::cout << typeid(this).name() << "-" << __FUNCTION__ << " " << __LINE__ << std::endl
-        << x << " " << y << " " << this->object_list.size()
-        << "clock=" << this->clock.getElapsedTime().asMilliseconds() << std::endl;
+    // std::cout << typeid(this).name() << "-" << __FUNCTION__ << " " << __LINE__ << std::endl
+    //     << x << " " << y << " " << this->object_list.size()
+    //     << "clock=" << this->clock.getElapsedTime().asMilliseconds() << std::endl;
     if (((0 < x) && (x < COL_NUM * TILE_SIZE))
         && ((0 < y) && (y < ROW_NUM * TILE_SIZE)))
     {
@@ -103,10 +111,23 @@ void Game::setClickPosition(int x, int y) {
                 matrix[i][j].p_ball->setSelect(true);
                 this->selecting_cell = std::make_pair(i, j);
             }
+            else { // 
+                this->updateMovingPath(this->selecting_cell.first, this->selecting_cell.second, i, j);
+            }
             this->clock.restart();
             this->selecting_position.x = x;
             this->selecting_position.y = y;
         }
     }
+}
 
+void Game::updateMovingPath(int start_x, int start_y, int end_x, int end_y)
+{
+    std::cout << "Generate path ... \n";
+    // This method returns vector of coordinates from target to source.
+    this->moving_path = this->generator.findPath({ start_x, start_y }, { end_x, end_y });
+
+    for (auto& coordinate : this->moving_path) {
+        std::cout << coordinate.x << " " << coordinate.y << "\n";
+    }
 }
