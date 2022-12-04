@@ -70,7 +70,11 @@ private:
 
     std::vector<std::shared_ptr<sf::Drawable>> object_list;
 
-    // std::pair<int&, int&> selecting_cell;
+    static const int CLICK_DELAY = 500; // 100ms
+    std::pair<int, int> selecting_cell;
+    sf::Vector2i selecting_position;
+
+    sf::Clock clock;
 };
 
 #endif // _GAME_HPP_

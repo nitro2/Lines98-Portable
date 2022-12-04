@@ -5,7 +5,9 @@
 // Constructor
 Game::Game() {
     init();
-    // std::pair<int&, int&> selecting_cell = { -1,-1 };
+    this->selecting_cell = std::make_pair(-1, -1);
+    this->clock.restart();
+    this->selecting_position = sf::Vector2i(0, 0);
 }
 // Destructor
 Game::~Game() {
@@ -79,22 +81,31 @@ void Game::draw(sf::RenderWindow& window) {
 
 void Game::setClickPosition(int x, int y) {
     std::cout << typeid(this).name() << "-" << __FUNCTION__ << " " << __LINE__ << std::endl
-        << x << " " << y << " " << this->object_list.size() << std::endl;
+        << x << " " << y << " " << this->object_list.size()
+        << "clock=" << this->clock.getElapsedTime().asMilliseconds() << std::endl;
     if (((0 < x) && (x < COL_NUM * TILE_SIZE))
         && ((0 < y) && (y < ROW_NUM * TILE_SIZE)))
     {
         int i = x / TILE_SIZE;
         int j = y / TILE_SIZE;
 
-        if (matrix[i][j].state == BallState::ACTIVE_BALL) {
-            matrix[i][j].state = BallState::INACTIVE_BALL;
-            matrix[i][j].p_ball->setSelect(false);
-            // this->selecting_cell = std::pair<int, int>(-1, -1);
-        }
-        else if (matrix[i][j].state == BallState::INACTIVE_BALL){
-            matrix[i][j].state = BallState::ACTIVE_BALL;
-            matrix[i][j].p_ball->setSelect(true);
-            // this->selecting_cell = std::pair<int, int>(i, j);
+        sf::Time bounding = clock.getElapsedTime();
+        if (((x != this->selecting_position.x) || (y != this->selecting_position.y))
+            || (bounding.asMilliseconds() > this->CLICK_DELAY))
+        {
+            if (matrix[i][j].state == BallState::ACTIVE_BALL) {
+                matrix[i][j].state = BallState::INACTIVE_BALL;
+                matrix[i][j].p_ball->setSelect(false);
+                this->selecting_cell = std::make_pair(-1, -1);
+            }
+            else if (matrix[i][j].state == BallState::INACTIVE_BALL) {
+                matrix[i][j].state = BallState::ACTIVE_BALL;
+                matrix[i][j].p_ball->setSelect(true);
+                this->selecting_cell = std::make_pair(i, j);
+            }
+            this->clock.restart();
+            this->selecting_position.x = x;
+            this->selecting_position.y = y;
         }
     }
 
