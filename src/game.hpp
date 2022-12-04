@@ -57,7 +57,7 @@ private:
         std::shared_ptr<Ball> p_ball;
     } Cell;
 
-    Cell matrix[ROW_NUM][COL_NUM];
+    Cell matrix[COL_NUM][ROW_NUM];
 
     std::map<BallType, sf::Color> ColorDict = {
         {BALL_TYPE_NONE, sf::Color::White},
